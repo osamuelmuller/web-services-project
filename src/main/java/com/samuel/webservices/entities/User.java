@@ -1,5 +1,6 @@
 package com.samuel.webservices.entities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,16 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "tb_user")
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
