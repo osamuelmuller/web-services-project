@@ -1,6 +1,7 @@
 package com.samuel.webservices.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.samuel.webservices.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -40,5 +43,22 @@ public class Order implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.getOrderStatus(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
+    }
+
+    public Order(Integer id, Instant moment, OrderStatus orderStatus, User client) {
+        this.client = client;
+        this.id = id;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
     }
 }
