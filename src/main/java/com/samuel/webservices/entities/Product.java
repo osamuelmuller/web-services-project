@@ -1,5 +1,6 @@
 package com.samuel.webservices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,12 +35,24 @@ public class Product implements Serializable {
     )
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
     public Product(Integer id, String name, String description, Double price, String imgUrl) {
         this.description = description;
         this.id = id;
         this.imgUrl = imgUrl;
         this.name = name;
         this.price = price;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override
