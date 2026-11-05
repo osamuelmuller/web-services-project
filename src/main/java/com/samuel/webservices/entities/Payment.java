@@ -1,5 +1,6 @@
 package com.samuel.webservices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,11 +27,18 @@ public class Payment implements Serializable {
     @Setter
     private Instant moment;
 
-    @Getter
-    @Setter
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     @Override
     public boolean equals(Object o) {

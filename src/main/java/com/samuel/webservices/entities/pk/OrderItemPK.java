@@ -1,5 +1,6 @@
 package com.samuel.webservices.entities.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.samuel.webservices.entities.Order;
 import com.samuel.webservices.entities.Product;
 import jakarta.persistence.Embeddable;

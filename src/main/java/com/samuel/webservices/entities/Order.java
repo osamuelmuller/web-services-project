@@ -1,7 +1,6 @@
 package com.samuel.webservices.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.samuel.webservices.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -70,5 +69,13 @@ public class Order implements Serializable {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
+    }
+
+    public Double getTotal() {
+        double total = 0.0;
+        for (OrderItem item : items) {
+            total += item.getSubTotal();
+        }
+        return total;
     }
 }
