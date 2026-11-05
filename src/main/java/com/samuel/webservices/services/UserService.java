@@ -22,4 +22,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    public User create(User user) {
+        return repository.save(user);
+    }
 }
