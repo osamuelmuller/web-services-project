@@ -2,6 +2,7 @@ package com.samuel.webservices.services;
 
 import com.samuel.webservices.entities.User;
 import com.samuel.webservices.repositories.UserRepository;
+import com.samuel.webservices.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserService {
 
     public User findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User create(User user) {
