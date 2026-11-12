@@ -26,7 +26,19 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User update(User newUser, Long id) {
+        User oldUser = repository.getReferenceById(id);
+        updateData(oldUser, newUser);
+        return repository.save(oldUser);
+    }
+
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    private void updateData(User oldUser, User newUser) {
+        oldUser.setName(newUser.getName());
+        oldUser.setEmail(newUser.getEmail());
+        oldUser.setPhone(newUser.getPhone());
     }
 }
